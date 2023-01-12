@@ -1,0 +1,56 @@
+<html>
+<style>
+    img {
+        max-height: 200px;
+        margin: 4px;
+        border: 1px solid #dedede;
+    }
+</style>
+
+<body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+    <script>
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://www.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=2a1bc157270015dda8cacbd83b78c102&gallery_id=6065-72157617483228192&format=json&nojsoncallback=1&auth_token=72157720870142184-133fddd603e8ad35&api_sig=f85a922320bb691bc3db33be8437dc96",
+            "method": "GET",
+            "headers": {}
+        }
+
+        $.ajax(settings).done(function(data) {
+            console.log(data);
+
+
+
+            $("#galleryTitle").append(data.photos.photo[0].title + " Gallery");
+            $.each(data.photos.photo, function(i, gp) {
+
+                var farmId = gp.farm;
+                var serverId = gp.server;
+                var id = gp.id;
+                var secret = gp.secret;
+
+                console.log(farmId + ", " + serverId + ", " + id + ", " + secret);
+
+                https: //farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+
+                    $("#flickr").append('<img src="https://farm' + farmId + '.staticflickr.com/' + serverId + '/' + id + '_' + secret + '.jpg"/>');
+
+            });
+        });
+    </script>
+
+
+    <h2>
+        <div id="galleryTitle"></div>
+    </h2>
+    <div style="clear:both;"></div>
+    <div id="flickr">
+        <div>
+</body>
+
+</html>
